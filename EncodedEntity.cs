@@ -65,10 +65,15 @@ namespace EntityCoding
         /// <param name="entity">The entity that is being referenced.</param>
         public void MakePropertyIntoReference( string originalProperty, IEntity entity )
         {
-            Reference reference = new Reference( entity, originalProperty );
-
-            References.Add( reference );
             Properties.Remove( originalProperty );
+
+            if ( entity != null )
+            {
+                Reference reference = new Reference( entity, originalProperty );
+
+                References.Add( reference );
+                Properties.Remove( originalProperty );
+            }
         }
 
         /// <summary>

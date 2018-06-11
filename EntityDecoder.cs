@@ -107,8 +107,8 @@ namespace EntityCoding
                         }
                     }
 
-                    //transaction.Commit();
-                    transaction.Rollback();
+                    transaction.Commit();
+                    //transaction.Rollback();
 
                     return true;
                 }

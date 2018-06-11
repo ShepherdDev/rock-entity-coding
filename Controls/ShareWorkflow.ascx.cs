@@ -19,6 +19,7 @@ using Rock.Web.Cache;
 using Rock.Web.UI;
 
 using EntityCoding;
+using EntityCoding.Exporters;
 
 namespace RockWeb.Blocks.Utility
 {
@@ -153,7 +154,7 @@ namespace RockWeb.Blocks.Utility
             Page.Response.Clear();
             Page.Response.ContentType = "application/json";
             Page.Response.AppendHeader( "Content-Disposition", string.Format( "attachment; filename=\"{0}_{1}.json\"", workflowType.Name.MakeValidFileName(), RockDateTime.Now.ToString( "yyyyMMddHHmm" ) ) );
-            Page.Response.Write( Newtonsoft.Json.JsonConvert.SerializeObject( container ) );
+            Page.Response.Write( Newtonsoft.Json.JsonConvert.SerializeObject( container, Newtonsoft.Json.Formatting.Indented ) );
             Page.Response.Flush();
             Page.Response.End();
         }
