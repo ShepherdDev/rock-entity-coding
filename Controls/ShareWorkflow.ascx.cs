@@ -1,28 +1,41 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using Rock;
-using Rock.Attribute;
 using Rock.Data;
 using Rock.Model;
-using Rock.Web;
-using Rock.Web.Cache;
 using Rock.Web.UI;
 
 using EntityCoding;
 using EntityCoding.Exporters;
 
+//
+// TODO: This block should be prettied up with tab buttons or something to
+// visually switch between export mode and import mode rather than mixing
+// both in one panel.
+//
+// TODO: Import status text should be updated to be a bit prettier. Using
+// a pre tag was a quick and dirty way to go. It would be nice if the
+// Created/Found Existing messages also included the friendly name of the
+// entity instead of the Guid (like Preview does).
+//
+// BUGFIX: Currently, the IsSystem field is exported and imported. This
+// should probably be skipped. Example case, the `Global` category for
+// DefinedType does not have a common Guid across installs. So if a DefinedType
+// is exported and imported you end up with a duplicate `Global` category.
+// That is manageable, but that duplicate `Global` category also is set to IsSystem=1
+// which prevents the user from cleaning up without editing SQL.
+//
 namespace RockWeb.Blocks.Utility
 {
+    /// <summary>
+    /// Export and import workflows from Rock.
+    /// </summary>
+    /// <seealso cref="Rock.Web.UI.RockBlock" />
     [DisplayName( "Share Workflow" )]
     [Category( "Utility" )]
     [Description( "Export and import workflows from Rock." )]
@@ -150,6 +163,8 @@ namespace RockWeb.Blocks.Utility
 
             var container = coder.GetExportedEntities();
 
+            // TODO: This should probably be stored as a BinaryFile and the user given a link to
+            // click to download.
             Page.EnableViewState = false;
             Page.Response.Clear();
             Page.Response.ContentType = "application/json";
