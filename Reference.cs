@@ -39,7 +39,7 @@ namespace EntityCoding
         /// <summary>
         /// The data used to re-create the reference, depends on Type.
         /// </summary>
-        public object Data { get; set; }
+        public string Data { get; set; }
 
         #endregion
 
@@ -78,7 +78,7 @@ namespace EntityCoding
             else
             {
                 Type = ReferenceType.Guid;
-                Data = entity.Guid;
+                Data = entity.Guid.ToString();
             }
         }
 
