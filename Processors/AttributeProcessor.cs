@@ -14,7 +14,6 @@ namespace EntityCoding.Processors
         /// <summary>
         /// The unique identifier for this entity processor. This is used to identify the correct
         /// processor to use when importing so we match the one used during export.
-        /// TODO: This should probably be replaced by using the class name of the processor.
         /// </summary>
         public override Guid Identifier { get { return new Guid( "67c72560-e047-495a-ad75-09ed920dae8a" ); } }
 
