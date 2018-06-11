@@ -47,9 +47,10 @@ namespace EntityCoding
         /// if an error occurs everything will be left in a clean state.
         /// </summary>
         /// <param name="container">The container of all the encoded entities.</param>
+        /// <param name="dryRun">If true then we only attempt the import, nothing is actually saved.</param>
         /// <param name="messages">Any messages, errors or otherwise, that should be displayed to the user.</param>
         /// <returns>true if the import succeeded, false if it did not.</returns>
-        public bool Import( ExportedEntitiesContainer container, out List<string> messages )
+        public bool Import( ExportedEntitiesContainer container, bool dryRun, out List<string> messages )
         {
             messages = new List<string>();
 
@@ -107,8 +108,17 @@ namespace EntityCoding
                         }
                     }
 
-                    transaction.Commit();
-                    //transaction.Rollback();
+                    //
+                    // Either commit the transaction or roll it back if we are doing a dry run.
+                    //
+                    if ( !dryRun )
+                    {
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
 
                     return true;
                 }

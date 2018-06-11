@@ -23,6 +23,8 @@
 
                         <Rock:CategoryPicker ID="cpImportCategory" runat="server" Label="Category" EntityTypeName="Rock.Model.WorkflowType" />
 
+                        <Rock:RockCheckBox ID="cbDryRun" runat="server" Label="Test Only" Help="If checked, then the import will only be tested, no changes to the database will be made." />
+
                         <asp:LinkButton ID="lbImport" runat="server" Text="Import" CssClass="btn btn-primary" OnClick="lbImport_Click" />
                     </div>
                 </div>

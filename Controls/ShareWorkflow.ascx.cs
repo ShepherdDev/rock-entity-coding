@@ -183,7 +183,7 @@ namespace RockWeb.Blocks.Utility
                 var decoder = new EntityDecoder( new RockContext() );
                 decoder.UserValues.Add( "WorkflowCategory", categoryService.Get( cpImportCategory.SelectedValueAsId().Value ) );
 
-                var success = decoder.Import( container, out messages );
+                var success = decoder.Import( container, cbDryRun.Checked, out messages );
 
                 ltImportResults.Text = string.Empty;
                 foreach ( var msg in messages )
